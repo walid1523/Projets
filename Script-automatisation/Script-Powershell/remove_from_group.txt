@@ -1,0 +1,14 @@
+# Script : remove_from_group.ps1
+
+# Demander le nom de l'utilisateur et du groupe
+$UserName = Read-Host "Entrez le nom de l'utilisateur à retirer du groupe"
+$GroupName = Read-Host "Entrez le nom du groupe"
+
+# Vérifier si l'utilisateur et le groupe existent
+if (Get-LocalUser -Name $UserName -ErrorAction SilentlyContinue -and Get-LocalGroup -Name $GroupName -ErrorAction SilentlyContinue) {
+    Remove-LocalGroupMember -Group $GroupName -Member $UserName
+    Write-Host "Utilisateur $UserName retiré du groupe $GroupName avec succès."
+} else {
+    Write-Host "L'utilisateur ou le groupe spécifié n'existe pas."
+}
+

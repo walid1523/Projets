@@ -1,0 +1,29 @@
+# Script : add_to_group.ps1
+
+# Demander le nom de l'utilisateur et du groupe
+$UserName = Read-Host "Entrez le nom de l'utilisateur à ajouter au groupe"
+$GroupName = Read-Host "Entrez le nom du groupe"
+
+# Vérifier si l'utilisateur existe
+if (!(Get-LocalUser -Name $UserName -ErrorAction SilentlyContinue)) {
+    Write-Host "L'utilisateur $UserName n'existe pas." -ForegroundColor Red
+    return
+}
+
+# Vérifier si le groupe existe
+if (!(Get-LocalGroup -Name $GroupName -ErrorAction SilentlyContinue)) {
+    Write-Host "Le groupe $GroupName n'existe pas." -ForegroundColor Yellow
+    $CreateGroup = Read-Host "Souhaitez-vous créer le groupe $GroupName ? Tapez 'OUI' pour confirmer"
+    if ($CreateGroup -eq "OUI") {
+        New-LocalGroup -Name $GroupName
+        Write-Host "Groupe $GroupName créé avec succès." -ForegroundColor Green
+    } else {
+        Write-Host "Action annulée. Le groupe $GroupName n'existe pas." -ForegroundColor Red
+        return
+    }
+}
+
+# Ajouter l'utilisateur au groupe
+Add-LocalGroupMember -Group $GroupName -Member $UserName
+Write-Host "Utilisateur $UserName ajouté au groupe $GroupName avec succès." -ForegroundColor Green
+

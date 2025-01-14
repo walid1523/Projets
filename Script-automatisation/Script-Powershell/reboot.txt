@@ -1,0 +1,12 @@
+# Script : reboot.ps1
+
+# Demander une confirmation avant de redémarrer la machine
+$Confirmation = Read-Host "Voulez-vous vraiment redémarrer la machine ? Tapez 'OUI' pour confirmer"
+
+if ($Confirmation -eq "OUI") {
+    Restart-Computer
+    Write-Host "La machine est en train de redémarrer..."
+} else {
+    Write-Host "Action annulée."
+}
+

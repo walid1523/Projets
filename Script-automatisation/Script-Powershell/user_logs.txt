@@ -1,0 +1,15 @@
+# Script : user_logs.ps1
+
+# Demander à l'utilisateur de saisir un nom d'utilisateur
+$UserName = Read-Host "Entrez le nom de l'utilisateur à analyser"
+
+# Rechercher les événements liés à cet utilisateur dans les journaux Windows
+$Logs = Get-WinEvent -FilterHashtable @{LogName="Security"; Data=$UserName} -MaxEvents 10
+
+if ($Logs) {
+    Write-Host "Voici les 10 derniers événements liés à l'utilisateur $UserName :"
+    $Logs | Format-Table TimeCreated, Id, Message -AutoSize
+} else {
+    Write-Host "Aucun événement trouvé pour l'utilisateur $UserName."
+}
+

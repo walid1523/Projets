@@ -1,0 +1,10 @@
+# Script : add_user.ps1
+
+# Demander à l'utilisateur d'entrer un nom et un mot de passe
+$UserName = Read-Host "Entrez le nom de l'utilisateur"
+$Password = Read-Host "Entrez le mot de passe" -AsSecureString
+
+# Créer un utilisateur local
+New-LocalUser -Name $UserName -Password $Password -FullName $UserName -Description "Utilisateur créé par script"
+Write-Host "Utilisateur $UserName créé avec succès."
+

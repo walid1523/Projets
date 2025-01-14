@@ -1,0 +1,13 @@
+# Script : remove_user.ps1
+
+# Demander à l'utilisateur de saisir le nom de l'utilisateur à supprimer
+$UserName = Read-Host "Entrez le nom de l'utilisateur à supprimer"
+
+# Vérifier si l'utilisateur existe
+if (Get-LocalUser -Name $UserName -ErrorAction SilentlyContinue) {
+    Remove-LocalUser -Name $UserName
+    Write-Host "Utilisateur $UserName supprimé avec succès."
+} else {
+    Write-Host "L'utilisateur $UserName n'existe pas."
+}
+

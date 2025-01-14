@@ -1,0 +1,12 @@
+# Script : shutdown.ps1
+
+# Demander une confirmation avant d'arrêter la machine
+$Confirmation = Read-Host "Voulez-vous vraiment arrêter la machine ? Tapez 'OUI' pour confirmer"
+
+if ($Confirmation -eq "OUI") {
+    Stop-Computer
+    Write-Host "La machine est en train de s'arrêter..."
+} else {
+    Write-Host "Action annulée."
+}
+

@@ -1,0 +1,12 @@
+# Script : system_logs.ps1
+
+# Récupérer les 10 derniers événements du journal système
+$Logs = Get-WinEvent -LogName "System" -MaxEvents 10
+
+if ($Logs) {
+    Write-Host "Voici les 10 derniers événements système :"
+    $Logs | Format-Table TimeCreated, Id, Message -AutoSize
+} else {
+    Write-Host "Aucun événement trouvé dans le journal système."
+}
+

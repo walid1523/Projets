@@ -1,0 +1,13 @@
+# Script : disable_user.ps1
+
+# Demander à l'utilisateur de saisir le nom de l'utilisateur à désactiver
+$UserName = Read-Host "Entrez le nom de l'utilisateur à désactiver"
+
+# Vérifier si l'utilisateur existe
+if (Get-LocalUser -Name $UserName -ErrorAction SilentlyContinue) {
+    Disable-LocalUser -Name $UserName
+    Write-Host "Utilisateur $UserName désactivé avec succès."
+} else {
+    Write-Host "L'utilisateur $UserName n'existe pas."
+}
+
